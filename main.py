@@ -1,8 +1,10 @@
 import rsa
 from tkinter import filedialog
 
+
 def gera_chaves():
-    public_key, private_key = rsa.newkeys(1024)
+    print("Gerando chaves no diretório raiz...")
+    public_key, private_key = rsa.newkeys(2048)
 
     with open("chave_publica.pem", "wb") as f:
         f.write(public_key.save_pkcs1("PEM"))
@@ -23,6 +25,7 @@ def ler_chave_privada():
     print("Lendo chave privada...")
     with open(chave_privada, "rb") as f:
         return rsa.PrivateKey.load_pkcs1(f.read())
+
 
 print("\n-- Bem-vindo(a) à criptografia RSA --\n")
 
@@ -45,7 +48,6 @@ if crip_ou_descrp == '1':
 else:
     mensagem_encript = input("Informe a mensagem criptografada: ")
     mensagem_encript = eval(mensagem_encript)
-
 
 chave_privada = ler_chave_privada()
 msg_descript = rsa.decrypt(mensagem_encript, chave_privada)
